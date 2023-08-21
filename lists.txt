@@ -1,0 +1,3 @@
+# adblocking hosts lists
+# format: name,url
+StevenBlack_hosts_unified,https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts

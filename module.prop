@@ -1,0 +1,7 @@
+id=MagicalProtection
+name=MagicalProtection
+version=$VERSION
+versionCode=$VERSIONCODE
+author=programminghoch10
+description=Magisk-only completely systemless adblocking.
+updateJson=https://raw.githubusercontent.com/programminghoch10/MagicalProtection/deploy/update.json
