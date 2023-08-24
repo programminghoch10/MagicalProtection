@@ -1,15 +1,22 @@
 #!/bin/bash
-set -e -u
+set -e
+set -u
+set -o pipefail
 IFS=$'\n'
+cd "$(dirname "$(readlink -f "$0")")"
+
+for cmd in git curl; do
+  [ -z "$(command -v "$cmd")" ] && echo "missing $cmd" && exit 1
+done
 
 function checkOutHosts() {
   ! git branch | grep -q hosts && git fetch origin hosts:hosts
   [ -d hosts ] && rm -rf hosts
   mkdir hosts
-  git clone $(pwd) hosts
+  git clone -q $(pwd) hosts
   cd hosts
-  git fetch origin hosts:hosts
-  git checkout hosts
+  git fetch -q origin hosts:hosts
+  git checkout -q hosts
   cd ..
 }
 
@@ -54,7 +61,9 @@ done < lists.txt
   cd hosts
   git add .
   git commit -m "Update lists"
-  git push
+  git push -q
 )
 
 $0 removeHosts
+
+git push origin hosts
