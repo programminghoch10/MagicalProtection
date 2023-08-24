@@ -34,7 +34,11 @@ while read -r line; do
   grep -q '^\s*#' <<< "$line" && continue
   file=$(cut -d',' -f1 <<< "$line")
   url=$(cut -d',' -f2 <<< "$line")
-  wget -O hosts/"$file" "$url"
+  curl \
+    -o hosts/"$file" \
+    --etag-save hosts/"$file".etag \
+    --etag-compare hosts/"$file".etag \
+    "$url"
 done < lists.txt
 (
   cd hosts
