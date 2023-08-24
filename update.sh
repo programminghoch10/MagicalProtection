@@ -40,6 +40,16 @@ while read -r line; do
     --etag-compare hosts/"$file".etag \
     "$url"
 done < lists.txt
+
+(
+  cd hosts
+  for file in *; do
+    listsfile=$(sed -e 's/\.etag$//' <<< "$file")
+    grep -q "^$listsfile" < ../lists.txt && continue
+    rm "$file"
+  done
+)
+
 (
   cd hosts
   git add .
