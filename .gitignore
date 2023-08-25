@@ -2,4 +2,6 @@ magiskmodule/module.prop
 magiskmodule/system
 magiskmodule/README.md
 hosts
+deploy
 *.zip
+.gitauth

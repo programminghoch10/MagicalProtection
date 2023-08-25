@@ -2,6 +2,7 @@ id=MagicalProtection
 name=MagicalProtection
 version=$VERSION
 versionCode=$VERSIONCODE
+versionTag=$VERSIONTAG
 versionModule=$MODULE_COMMITS
 versionHosts=$HOSTS_COMMITS
 versionModuleCommitHash=$COMMITHASHFULL

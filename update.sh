@@ -9,28 +9,55 @@ for cmd in git curl; do
   [ -z "$(command -v "$cmd")" ] && echo "missing $cmd" && exit 1
 done
 
-function checkOutHosts() {
-  ! git branch | grep -q hosts && git fetch origin hosts:hosts
-  [ -d hosts ] && rm -rf hosts
-  mkdir hosts
-  git clone -q $(pwd) hosts
-  cd hosts
-  git fetch -q origin hosts:hosts
-  git checkout -q hosts
+function checkOutBranch() {
+  local branch="$1"
+  local folder="${2-}"
+  [ -z "$folder" ] && folder="$branch"
+  ! git branch | grep -q "$branch" && git fetch origin "$branch":"$branch"
+  [ -d "$folder" ] && rm -rf "$folder"
+  mkdir "$folder"
+  git clone -q $(pwd) "$folder"
+  cd "$folder"
+  git fetch -q origin "$branch":"$branch"
+  git checkout -q "$branch"
   cd ..
 }
 
-function removeHosts() {
-  rm -rf hosts
+function removeBranch() {
+  local branch="$1"
+  local folder="${2-}"
+  [ -z "$folder" ] && folder="$branch"
+  rm -rf "$folder"
+}
+
+function pushBranch() {
+  local branch="$1"
+  git push origin "$branch"
 }
 
 case "${1-}" in
   checkOutHosts)
-    checkOutHosts
+    checkOutBranch hosts
     exit
     ;;
   removeHosts)
-    removeHosts
+    removeBranch hosts
+    exit
+    ;;
+  pushHosts)
+    pushBranch hosts
+    exit
+    ;;
+  checkOutDeploy)
+    checkOutBranch deploy
+    exit
+    ;;
+  removeDeploy)
+    removeBranch deploy
+    exit
+    ;;
+  pushDeploy)
+    pushBranch deploy
     exit
     ;;
 esac
@@ -66,4 +93,4 @@ done < lists.txt
 
 $0 removeHosts
 
-git push origin hosts
+$0 pushHosts

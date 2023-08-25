@@ -1,0 +1,6 @@
+{
+  "version": "$VERSION",
+  "versionCode": $VERSIONCODE,
+  "zipUrl": "https://github.com/programminghoch10/MagicalProtection/releases/download/$VERSIONTAG/$FILENAME",
+  "changelog": "https://raw.githubusercontent.com/programminghoch10/MagicalProtection/deploy/changelog.md"
+}
