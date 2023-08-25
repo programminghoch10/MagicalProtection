@@ -28,19 +28,16 @@ FILE_MODULE_PROP=$(unzip -p "$FILE" module.prop)
 
 ./update.sh checkOutDeploy
 
-DEPLOY_MODULE_VERSION=$(getprop versionModule < deploy/module.prop)
-DEPLOY_HOSTS_VERSION=$(getprop versionHosts < deploy/module.prop)
 DEPLOY_VERSION=$(getprop version < deploy/module.prop)
-FILE_MODULE_VERSION=$(getprop versionModule <<< "$FILE_MODULE_PROP")
-FILE_HOSTS_VERSION=$(getprop versionHosts <<< "$FILE_MODULE_PROP")
+DEPLOY_VERSIONCODE=$(getprop versionCode < deploy/module.prop)
 FILE_VERSION=$(getprop version <<< "$FILE_MODULE_PROP")
+FILE_VERSIONCODE=$(getprop versionCode <<< "$FILE_MODULE_PROP")
 
 echo "deploy version = $DEPLOY_VERSION" >&2
 echo "  file version = $FILE_VERSION" >&2
 
-[ "$DEPLOY_MODULE_VERSION" = "$FILE_MODULE_VERSION" ] && \
-[ "$DEPLOY_HOSTS_VERSION" = "$FILE_HOSTS_VERSION" ] && {
-  echo "version did not change, no deploy required."
+[ "$FILE_VERSIONCODE" -le "$DEPLOY_VERSIONCODE" ] && {
+  echo "versioncode did not increase, no deploy required."
   ./update.sh removeDeploy
   exit 0
 }
