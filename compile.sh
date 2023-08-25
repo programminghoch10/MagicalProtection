@@ -6,7 +6,7 @@ IFS=$'\n'
 renice -n 19 $$ &>/dev/null
 cd "$(dirname "$(readlink -f "$0")")"
 
-for cmd in git zip; do
+for cmd in git zip base64; do
   [ -z "$(command -v "$cmd")" ] && echo "missing $cmd" && exit 1
 done
 
@@ -23,15 +23,18 @@ function getCommitCount() {
   )
 }
 
-[ -n "$(git status --porcelain)" ] && CHANGES="+" || CHANGES=""
+git diff --exit-code --quiet && LOCALCHANGES=false || LOCALCHANGES=true
+$LOCALCHANGES && CHANGES="+" || CHANGES=""
 MODULE_COMMITS=$(getCommitCount)
 HOSTS_COMMITS=$(getCommitCount hosts)
 VERSIONCODE=$MODULE_COMMITS$(printf '%05d' $HOSTS_COMMITS)
 COMMITHASH=$(git log -1 --pretty=%h)
+COMMITHASHFULL=$(git log -1 --pretty=%H)
 VERSION=mv$MODULE_COMMITS-hv$HOSTS_COMMITS$CHANGES$COMMITHASH
 FILENAME=MagicalProtection-mv$MODULE_COMMITS-hv$HOSTS_COMMITS
+LOCALDIFF=$(git diff --no-color --irreversible-delete | base64 -w 0)
 
-declare -x VERSION VERSIONCODE
+declare -x VERSION VERSIONCODE MODULE_COMMITS HOSTS_COMMITS COMMITHASHFULL LOCALCHANGES LOCALDIFF
 envsubst < module.prop > magiskmodule/module.prop
 
 cp -f README.md magiskmodule/README.md
