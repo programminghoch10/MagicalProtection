@@ -6,6 +6,7 @@ Magisk-only completely systemless adblocking.
 [![GitHub Global Download Counter](https://img.shields.io/github/downloads/programminghoch10/MagicalProtection/total?logo=github)](https://github.com/programminghoch10/MagicalProtection/releases)
 [![GitHub Latest Download Counter](https://img.shields.io/github/downloads/programminghoch10/MagicalProtection/latest/total?logo=github)](https://github.com/programminghoch10/MagicalProtection/releases/latest) \
 [![GitHub Build Workflow Status](https://img.shields.io/github/actions/workflow/status/programminghoch10/MagicalProtection/build.yml?logo=github%20actions&logoColor=white)](https://github.com/programminghoch10/MagicalProtection/actions/workflows/build.yml)
+[![GitHub Automatic Update Workflow Status](https://img.shields.io/github/actions/workflow/status/programminghoch10/MagicalProtection/autoupdate.yml?logo=github%20actions&logoColor=white)](https://github.com/programminghoch10/MagicalProtection/actions/workflows/autoupdate.yml)
 [![GitHub last commit](https://img.shields.io/github/last-commit/programminghoch10/MagicalProtection?logo=git&logoColor=white)](https://github.com/programminghoch10/MagicalProtection/commits/main) \
 [![GitHub Repo stars](https://img.shields.io/github/stars/programminghoch10/MagicalProtection?style=social)](https://github.com/programminghoch10/MagicalProtection/stargazers) \
 [![GitHub followers](https://img.shields.io/github/followers/programminghoch10?style=social)](https://github.com/programminghoch10)

@@ -1,0 +1,66 @@
+name: Automatic Update
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+concurrency:
+  group: update
+  cancel-in-progress: false
+
+jobs:
+  update:
+    name: Update Hosts
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Setup git
+        run: |
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+      - name: Run update.sh
+        run: ./update.sh
+  build:
+    name: Build
+    needs: update
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Run compile.sh
+        run: ./compile.sh
+      - name: Upload Build Result
+        uses: actions/upload-artifact@v3
+        with:
+          name: MagicalProtection.zip
+          path: |
+            MagicalProtection-*.zip
+          if-no-files-found: error
+  deploy:
+    name: Deploy
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Setup git
+        run: |
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+      - name: Download Build Result
+        uses: actions/download-artifact@v3
+        with:
+          name: MagicalProtection.zip
+      - name: Run deploy.sh
+        run: ./deploy.sh

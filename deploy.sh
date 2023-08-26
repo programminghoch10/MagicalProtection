@@ -6,7 +6,7 @@ IFS=$'\n'
 cd "$(dirname "$(readlink -f "$0")")"
 
 [ -f .gitauth ] && source .gitauth
-[ -z "$GITHUB_TOKEN" ] && echo "missing GITHUB_TOKEN" && exit 1
+[ -z "${GITHUB_TOKEN-}" ] && echo "missing GITHUB_TOKEN" && exit 1
 
 for cmd in git curl jq; do
   [ -z "$(command -v "$cmd")" ] && echo "missing $cmd" && exit 1

@@ -18,6 +18,7 @@ function checkOutBranch() {
   mkdir "$folder"
   git clone -q $(pwd) "$folder"
   cd "$folder"
+  git config --local push.autoSetupRemote true
   git fetch -q origin "$branch":"$branch"
   git checkout -q "$branch"
   cd ..
@@ -87,7 +88,7 @@ done < lists.txt
 (
   cd hosts
   git add .
-  git commit -m "Update lists"
+  git commit -m "Update lists" || true
   git push -q
 )
 
