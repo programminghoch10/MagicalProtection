@@ -2,6 +2,7 @@
 set -e
 set -u
 set -o pipefail
+shopt -s inherit_errexit
 IFS=$'\n'
 renice -n 19 $$ &>/dev/null
 cd "$(dirname "$(readlink -f "$0")")"
@@ -27,7 +28,7 @@ git diff --exit-code --quiet && LOCALCHANGES=false || LOCALCHANGES=true
 $LOCALCHANGES && CHANGES="+" || CHANGES="-"
 MODULE_COMMITS=$(getCommitCount)
 HOSTS_COMMITS=$(getCommitCount hosts)
-VERSIONCODE=$MODULE_COMMITS$(printf '%05d' $HOSTS_COMMITS)
+VERSIONCODE=$MODULE_COMMITS$(printf '%05d' "$HOSTS_COMMITS")
 COMMITHASH=$(git log -1 --pretty=%h)
 COMMITHASHFULL=$(git log -1 --pretty=%H)
 VERSIONTAG=mv$MODULE_COMMITS-hv$HOSTS_COMMITS

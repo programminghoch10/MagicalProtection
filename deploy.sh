@@ -2,6 +2,7 @@
 set -e
 set -u
 set -o pipefail
+shopt -s inherit_errexit
 IFS=$'\n'
 cd "$(dirname "$(readlink -f "$0")")"
 
@@ -13,12 +14,14 @@ for cmd in git curl jq; do
 done
 
 FILE="${1-}"
+# shellcheck disable=SC2012
 [ -z "$FILE" ] && FILE=$(ls MagicalProtection-*.zip | tail -n 1)
 [ -z "$FILE" ] && echo "require input file" && exit 1
 
 function getprop() {
   local prop="$1"
-  local content=$(cat)
+  local content
+  content=$(cat)
   [ -z "$content" ] && echo "missing content in getProp" >&2 && return 1
   grep -q "^$prop" <<< "$content" || return 1
   grep "^$prop" <<< "$content" | head -n 1 | cut -d'=' -f2
@@ -47,7 +50,8 @@ NEW_TAG_NAME=$(getprop versionTag <<< "$FILE_MODULE_PROP")
 export FILENAME="$FILE"
 export VERSIONTAG="$NEW_TAG_NAME"
 export VERSION="$FILE_VERSION"
-export VERSIONCODE=$(getprop versionCode <<< "$FILE_MODULE_PROP")
+VERSIONCODE=$(getprop versionCode <<< "$FILE_MODULE_PROP")
+export VERSIONCODE
 envsubst < update_template.json > deploy/update.json
 echo "$FILE_MODULE_PROP" > deploy/module.prop
 
@@ -76,7 +80,7 @@ CREATE_RELEASE_RESPONSE=$(curl \
   --silent \
   "${CURL_GITHUB_API_ARGS[@]}" \
   --request POST \
-  https://api.github.com/repos/$GITHUB_OWNER/$GITHUB_REPO/releases \
+  "https://api.github.com/repos/$GITHUB_OWNER/$GITHUB_REPO/releases" \
   --data "{
       \"tag_name\":\"$VERSIONTAG\",
       \"target_commitish\":\"$COMMITISH\",
@@ -103,7 +107,7 @@ curl \
   --silent \
   "${CURL_GITHUB_API_ARGS[@]}" \
   --request PATCH \
-  https://api.github.com/repos/$GITHUB_OWNER/$GITHUB_REPO/releases/$RELEASE_ID \
+  "https://api.github.com/repos/$GITHUB_OWNER/$GITHUB_REPO/releases/$RELEASE_ID" \
   --data '{"draft":false}' \
   --output /dev/null
 

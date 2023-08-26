@@ -2,6 +2,7 @@
 set -e
 set -u
 set -o pipefail
+shopt -s inherit_errexit
 IFS=$'\n'
 cd "$(dirname "$(readlink -f "$0")")"
 
@@ -16,7 +17,7 @@ function checkOutBranch() {
   ! git branch | grep -q "$branch" && git fetch origin "$branch":"$branch"
   [ -d "$folder" ] && rm -rf "$folder"
   mkdir "$folder"
-  git clone -q $(pwd) "$folder"
+  git clone -q "$(pwd)" "$folder"
   cd "$folder"
   git config --local push.autoSetupRemote true
   git fetch -q origin "$branch":"$branch"
@@ -60,6 +61,8 @@ case "${1-}" in
   pushDeploy)
     pushBranch deploy
     exit
+    ;;
+  *)
     ;;
 esac
 
