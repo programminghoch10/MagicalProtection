@@ -1,0 +1,22 @@
+
+# enable additional checks
+enable=add-default-case
+enable=avoid-nullary-conditions
+enable=check-set-e-suppressed
+enable=check-unassigned-uppercase
+enable=deprecate-which
+
+# cd fail
+#  this is usually covered by set -e
+disable=SC2164
+
+# dont follow source files info
+#  we check all shell scripts anyways
+disable=SC1091
+
+# unnecessary arithmetic variables style
+#  i dont care whether it says $(($TODAY)) or $((TODAY))
+disable=SC2004
+
+# redundant sed invocation
+disable=SC2001
