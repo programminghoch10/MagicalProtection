@@ -58,8 +58,6 @@ echo "$FILE_MODULE_PROP" > deploy/module.prop
   git push -q
 ) || exit 1
 
-./update.sh removeDeploy
-
 GITHUB_OWNER="programminghoch10"
 GITHUB_REPO="MagicalProtection"
 
@@ -87,6 +85,8 @@ CREATE_RELEASE_RESPONSE=$(curl \
       \"draft\":true
       }"
 )
+
+./update.sh removeDeploy
 
 RELEASE_ID=$(jq --raw-output .id <<< "$CREATE_RELEASE_RESPONSE")
 [ -z "$RELEASE_ID" ] && echo "failed to acquire created release id" && exit 1
