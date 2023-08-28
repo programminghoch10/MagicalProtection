@@ -1,11 +1,11 @@
 id=MagicalProtection
 name=MagicalProtection
-version=v1
-versionCode=1
-versionTag=1
-versionModule=1
-versionHosts=2
-versionModuleCommitHash=fdc17b3ee4fb9f4fd8ef590f53a73217c5fbd975
+version=mv14-hv3-e317f41
+versionCode=1400003
+versionTag=mv14-hv3
+versionModule=14
+versionHosts=3
+versionModuleCommitHash=e317f41da9f78769a1199ce550b8d72084249705
 versionModuleLocalChanges=false
 versionModuleLocalDiff=
 author=programminghoch10
