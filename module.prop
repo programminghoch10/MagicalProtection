@@ -1,10 +1,10 @@
 id=MagicalProtection
 name=MagicalProtection
-version=mv16-hv31-0f6220c
-versionCode=1600031
-versionTag=mv16-hv31
+version=mv16-hv32-0f6220c
+versionCode=1600032
+versionTag=mv16-hv32
 versionModule=16
-versionHosts=31
+versionHosts=32
 versionModuleCommitHash=0f6220c29afa0522ccc5c4c7954b9052bc94dbd4
 versionModuleLocalChanges=false
 versionModuleLocalDiff=
