@@ -57,3 +57,10 @@ The module version (`mv`)
 and the hosts version (`hv`).  
 Both will tick up individually 
 as updates for module and hosts are deployed.
+
+## Blocklist Issues
+
+This mod uses blocklists from other sources.
+If you have an issue with the blocked domains, 
+look at [the currently used blocklists](lists.txt)
+and report the issue there.
