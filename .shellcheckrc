@@ -20,3 +20,7 @@ disable=SC2004
 
 # redundant sed invocation
 disable=SC2001
+
+# referencing unassigned variable
+#  we need to reference magisk pre-set variables a lot
+disable=SC2154
