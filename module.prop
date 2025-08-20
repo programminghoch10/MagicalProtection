@@ -1,10 +1,10 @@
 id=MagicalProtection
 name=MagicalProtection
-version=mv18-hv77-d840fa9
-versionCode=1800077
-versionTag=mv18-hv77
+version=mv18-hv78-d840fa9
+versionCode=1800078
+versionTag=mv18-hv78
 versionModule=18
-versionHosts=77
+versionHosts=78
 versionModuleCommitHash=d840fa9d6667933b8deba9fd24d2913ba0945eec
 versionModuleLocalChanges=false
 versionModuleLocalDiff=
