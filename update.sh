@@ -73,6 +73,7 @@ while read -r line; do
   file=$(cut -d',' -f1 <<< "$line")
   url=$(cut -d',' -f2 <<< "$line")
   curl \
+    --fail \
     -o hosts/"$file" \
     --etag-save hosts/"$file".etag \
     --etag-compare hosts/"$file".etag \
