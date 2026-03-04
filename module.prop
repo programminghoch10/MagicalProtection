@@ -1,10 +1,10 @@
 id=MagicalProtection
 name=MagicalProtection
-version=mv19-hv93-46cc856
-versionCode=1900093
-versionTag=mv19-hv93
+version=mv19-hv94-46cc856
+versionCode=1900094
+versionTag=mv19-hv94
 versionModule=19
-versionHosts=93
+versionHosts=94
 versionModuleCommitHash=46cc856fd373ffbf1405756f708b977dd54c03c8
 versionModuleLocalChanges=false
 versionModuleLocalDiff=
